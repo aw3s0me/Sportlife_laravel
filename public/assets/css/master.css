@@ -1,0 +1,35 @@
+body {
+    font-family: 'Droid Sans', arial, serif;
+
+}
+
+.my-header {
+    background-color: #00aeef;
+    color: #fff;
+}
+
+.my-header-inverse {
+    background-color: #00aeef !important;
+    color: #fff;
+}
+
+.navbar {
+    background-color: #00aeef;
+    min-height: 44px !important;
+    margin: 0 auto;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.logo a {
+    font-size: 22   px !important;
+}
+
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+    background-color: #00aeef;
+
+}
