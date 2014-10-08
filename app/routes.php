@@ -19,6 +19,7 @@ Route::model('user', 'User');
 Route::model('comment', 'Comment');
 Route::model('post', 'Post');
 Route::model('role', 'Role');
+Route::model('people', 'User');
 
 /** ------------------------------------------
  *  Route constraint patterns
@@ -77,6 +78,11 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
  *  Frontend Routes
  *  ------------------------------------------
  */
+
+// All users
+Route::get('users', 'UserController@getList');
+Route::get('users/{username}', 'UserController@showProfile');
+Route::get('social/groups', 'SocialNetworkController@getGroups');
 
 // User reset routes
 Route::get('user/reset/{token}', 'UserController@getReset');

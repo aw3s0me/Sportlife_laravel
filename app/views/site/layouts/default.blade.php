@@ -28,6 +28,7 @@
         <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.css')}}">
         <!-- <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap-theme.min.css')}}">-->
         <link rel="stylesheet" href="{{asset('assets/css/master.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/user.css')}}">
 		<style>
         body {
             padding: 60px 0;

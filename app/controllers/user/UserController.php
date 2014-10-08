@@ -33,6 +33,34 @@ class UserController extends BaseController {
     }
 
     /**
+     * Gets User List
+     * 
+     * 
+     * */
+
+    public function getList() {
+        $users = User::all();
+
+        // Show the page
+        return View::make('site/user/list', ['users' => $users]);
+    }
+
+
+    /**
+     * 
+     * Show profile of particular user
+     * 
+     */
+
+    public function showProfile($username) {
+        $user = User::whereUsername($username)->first();
+
+        return View::make('site/user/profile', ['user' => $user]);
+    }
+
+
+
+    /**
      * Stores new user
      *
      */
