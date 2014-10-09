@@ -82,7 +82,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
 // All users
 Route::get('users', 'UserController@getList');
 Route::get('users/{username}', 'UserController@showProfile');
-Route::get('social/groups', 'SocialNetworkController@getGroups');
+Route::get('groups', 'GroupController@getIndex');
 
 // User reset routes
 Route::get('user/reset/{token}', 'UserController@getReset');
