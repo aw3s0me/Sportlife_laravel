@@ -71,7 +71,6 @@
 						<li class="logo" {{ (Request::is('/') ? ' class="active"' : '') }}><a href="{{{ URL::to('') }}}">SPORTLIFE</a></li>
                         <li><a href="{{{ URL::to('users') }}}">Users</a></li>
                         <li><a href="{{{ URL::to('groups') }}}">Groups</a></li>
-                        <li><a href="{{{ URL::to('orgs') }}}">Organizations</a></li>
 					</ul>
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">

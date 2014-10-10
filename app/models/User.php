@@ -11,6 +11,8 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 class User extends ConfideUser implements UserInterface, RemindableInterface{
     use HasRole;
 
+    protected $guarded = array();
+
     /**
      * Get user by username
      * @param $username
@@ -102,6 +104,10 @@ class User extends ConfideUser implements UserInterface, RemindableInterface{
     public function getReminderEmail()
     {
         return $this->email;
+    }
+
+    public function groups() {
+        return $this->belongsToMany('Group');
     }
 
 }
