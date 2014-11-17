@@ -57,6 +57,16 @@ class GroupController extends BaseController {
         return View::make('site/groups/create');
     }
 
+    public function getGroupEdit($groupid)
+    {
+        $group = Group::find($groupid);
+        if (!$group) {
+            return Redirect::back()->with( 'error', 'Error' );
+        }
+
+        return View::make('site/groups/edit', ['group' => $group]);
+    }
+
     public function postGroup() 
     {   
         $group = new Group;
@@ -76,9 +86,15 @@ class GroupController extends BaseController {
         //$group->users()->withPivot('is_admin');
         //$group = Group::find();
         $group = Group::find($groupId)->first();
-        //$group->belongsToMany('User')->withPivot('is_admin');
+        $group->belongsToMany('User')->withPivot('is_admin');
+        //Log::info(dd($group->pivot));
         //$group->pivot->is_admin = 1;
-        $group->users()->updateExistingPivot($curUserId, array( 'is_admin' => 1), false);
+        //$group->users()->updateExistingPivot($curUserId, array( 'is_admin' => 1), false);
+        $pivot = DB::table('group_user')->where('user_id', '=', $curUserId)->where('group_id', '=', $groupId)->update(array( 'is_admin' => 1));
+
+        //$pivot[0]->is_admin = 1;
+        //$pivot[0]->save();
+
 
         //$group->pivot->save();
 
@@ -116,14 +132,46 @@ class GroupController extends BaseController {
         //return Redirect::back()->with('message','Operation Successful !');
     }
 
+    public function getGroupDetail($groupid)
+    {
+        $group = Group::find($groupid);
+
+        if (!$group) return Redirect::back()->with( 'error', 'Error' );
+
+        return View::make('site/groups/detail', ['group' => $group]);
+    }
+
     public function editGroup($groupid)
     {
         $group = Group::find($groupid);
 
         if (!$group) return Redirect::back()->with( 'error', 'Error' );
 
+        $group->name = Input::get('name');
+        $group->email = Input::get('email');
+        $group->address = Input::get('address');
+        $group->telephone = Input::get('telephone');
+        $group->save();
+
+        return Redirect::back()->with('message','Operation Successful !');
+
+    }
+
+    public function removeGroup($groupid)
+    {
+        $group = Group::find($groupid);
+        $userId = Auth::user()->id;
+        $res = DB::table('group_user')->where('group_id', '=', $groupid)->delete();
         
-        
+        if (!$group || !$res) return Redirect::back()->with( 'error', 'Error' );
+
+        $group->delete();
+        //$group->users()->detach(array($userId));
+
+        $groups = Group::all();
+        return View::make('site/groups/list', ['groups' => $groups]);
+
+        //return Redirect::back()->with('message','Operation Successful !');
     }
 
 }

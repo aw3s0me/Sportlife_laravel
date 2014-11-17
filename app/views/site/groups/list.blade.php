@@ -88,10 +88,9 @@
                         </div>
                     </div>
                     <div class="panel-footer">
-                        <button class="btn btn-sm btn-warning" type="button"
+                        <a href="{{ URL::to('groups/detail/' . $group->id) }}" class="btn btn-sm btn-warning" type="button"
                                     data-toggle="tooltip"
-                                    data-original-title="Edit"><i class="glyphicon glyphicon-edit"></i></button>
-                        
+                                    data-original-title="Details"><i class="glyphicon glyphicon-search"></i></a>
                         <span class="pull-right">
                             @if ($group->user_in_group())
                                 <form method="get" action="{{ URL::to('groups/quit/' . $group->id) }}">

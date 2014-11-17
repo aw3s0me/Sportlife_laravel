@@ -90,6 +90,10 @@ Route::get('groups/create', 'GroupController@getGroupCreate');
 Route::post('groups/create', 'GroupController@postGroup');
 Route::get('groups/enter/{groupid}', 'GroupController@enterGroup');
 Route::get('groups/quit/{groupid}', 'GroupController@quitGroup');
+Route::get('groups/edit/{groupid}', 'GroupController@getGroupEdit');
+Route::get('groups/detail/{groupid}', 'GroupController@getGroupDetail');
+Route::post('groups/edit/{groupid}', 'GroupController@editGroup');
+Route::post('groups/remove/{groupid}', 'GroupController@removeGroup');
 
 
 // User reset routes
