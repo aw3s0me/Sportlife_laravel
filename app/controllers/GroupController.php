@@ -47,19 +47,83 @@ class GroupController extends BaseController {
      * @return View
      * @throws NotFoundHttpException
      */
-    public function getView($slug)
+    public function getGroupView()
     {
         // Get group info
     }
 
-    /**
-     * View a blog post.
-     *
-     * @param  string  $slug??
-     * @return Redirect
-     */
-    public function postView($slug)
+    public function getGroupCreate()
     {
-        //creation of group
+        return View::make('site/groups/create');
     }
+
+    public function postGroup() 
+    {   
+        $group = new Group;
+        $group->name = Input::get('name');
+        $group->email = Input::get('email');
+        $group->address = Input::get('address');
+        $group->telephone = Input::get('telephone');
+        $group->save();
+        $curUser = Auth::user();
+        $curUserId = $curUser->id;
+
+        $group->save();
+        $groupId = $group->id;
+
+        $group->users()->sync(array($curUserId));
+        //$group->users()->withPivot(array('is_admin', 1));
+        //$group->users()->withPivot('is_admin');
+        //$group = Group::find();
+        $group = Group::find($groupId)->first();
+        //$group->belongsToMany('User')->withPivot('is_admin');
+        //$group->pivot->is_admin = 1;
+        $group->users()->updateExistingPivot($curUserId, array( 'is_admin' => 1), false);
+
+        //$group->pivot->save();
+
+        $groups = Group::all();
+        return View::make('site/groups/list', ['groups' => $groups]);
+    }
+
+    public function enterGroup($groupid) 
+    {
+        $group = Group::find($groupid);
+        
+        if (!$group) return Redirect::back()->with( 'error', 'Error' );
+
+        $userId = Auth::user()->id;
+        $group->users()->sync(array($userId));
+
+        $groups = Group::all();
+        return View::make('site/groups/list', ['groups' => $groups]);
+
+        //return Redirect::back()->with('message','Operation Successful !');
+    }
+
+    public function quitGroup($groupid)
+    {
+        $group = Group::find($groupid);
+        
+        if (!$group) return Redirect::back()->with( 'error', 'Error' );
+
+        $userId = Auth::user()->id;
+        $group->users()->detach(array($userId));
+
+        $groups = Group::all();
+        return View::make('site/groups/list', ['groups' => $groups]);
+
+        //return Redirect::back()->with('message','Operation Successful !');
+    }
+
+    public function editGroup($groupid)
+    {
+        $group = Group::find($groupid);
+
+        if (!$group) return Redirect::back()->with( 'error', 'Error' );
+
+        
+        
+    }
+
 }

@@ -3,7 +3,11 @@
 
 {{-- Content --}}
 @section('content')
-<h1>Group List: will be here!</h1>
+<h1>Group List: 
+<a href="{{{ URL::to('groups/create') }}}" type="button" class="btn btn-info btn-lg">
+  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Group
+</a>
+</h1>
 <div class="page-header">
     <h3>
 
@@ -21,7 +25,7 @@
             </div>
             <div class="col-xs-8 col-sm-9 col-md-10 col-lg-10">
                 <strong>{{ $group->name }}</strong><br>
-                <span class="text-muted">Group administrator: { username }</span>
+                <span class="text-muted">{{ $group->address }}</span>
             </div>
             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".cyruxx">
                 <i class="glyphicon glyphicon-chevron-down text-muted"></i>
@@ -48,12 +52,14 @@
                             <div class="col-xs-10 col-sm-10 hidden-md hidden-lg">
                                 <strong>Group</strong><br>
                                 <dl>
-                                    <dt>Group administrator:</dt>
-                                    <dd>{ username }</dd>
-                                    <dt>Registered since:</dt>
-                                    <dd>{registration_date}</dd>
+                                    <dt>Email:</dt>
+                                    <dd>{{ $group->email }}</dd>
+                                    <dt>Address:</dt>
+                                    <dd>{{ $group->address }}</dd>
+                                    <dt>Telephone:</dt>
+                                    <dd>{{ $group->telephone }}</dd>
                                     <dt>Name:</dt>
-                                    <dd>{name}</dd>
+                                    <dd>{{ $group->name }}</dd>
                                 </dl>
                             </div>
                             <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
@@ -61,16 +67,20 @@
                                 <table class="table table-user-information">
                                     <tbody>
                                     <tr>
-                                        <td>>Group administrator:</td>
-                                        <td>{ username }</td>
+                                        <td>Email</td>
+                                        <td>{{ $group->email }}</td>
                                     </tr>
                                     <tr>
-                                        <td>Registered since:</td>
-                                        <td>{registration_date}</td>
+                                        <td>Address</td>
+                                        <td>{{ $group->address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Telephone</td>
+                                        <td>{{ $group->telephone }}</td>
                                     </tr>
                                     <tr>
                                         <td>Name</td>
-                                        <td>{name}</td>
+                                        <td>{{ $group->name }}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -78,16 +88,25 @@
                         </div>
                     </div>
                     <div class="panel-footer">
-                        <button class="btn btn-sm btn-primary" type="button"
-                                data-toggle="tooltip"
-                                data-original-title="Send message to user"><i class="glyphicon glyphicon-envelope"></i></button>
+                        <button class="btn btn-sm btn-warning" type="button"
+                                    data-toggle="tooltip"
+                                    data-original-title="Edit"><i class="glyphicon glyphicon-edit"></i></button>
+                        
                         <span class="pull-right">
-                            <button class="btn btn-sm btn-warning" type="button"
+                            @if ($group->user_in_group())
+                                <form method="get" action="{{ URL::to('groups/quit/' . $group->id) }}">
+                                <button class="btn btn-sm btn-danger" type="submit"
+                                        data-toggle="tooltip"
+                                        data-original-title="Quit"><i class="glyphicon glyphicon-remove"></i></button>
+                                </form>
+                            @else
+                                <form method="get" action="{{ URL::to('groups/enter/' . $group->id) }}">
+                                <button class="btn btn-sm btn-primary" type="submit"
                                     data-toggle="tooltip"
-                                    data-original-title="Edit this user"><i class="glyphicon glyphicon-edit"></i></button>
-                            <button class="btn btn-sm btn-danger" type="button"
-                                    data-toggle="tooltip"
-                                    data-original-title="Remove this user"><i class="glyphicon glyphicon-remove"></i></button>
+                                    data-original-title="Enter"><i class="glyphicon glyphicon-plus"></i></button>
+                                </form>
+                            @endif
+
                         </span>
                     </div>
                 </div>

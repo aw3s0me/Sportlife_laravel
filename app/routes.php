@@ -82,7 +82,15 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
 // All users
 Route::get('users', 'UserController@getList');
 Route::get('users/{username}', 'UserController@showProfile');
+
+//Groups
 Route::get('groups', 'GroupController@getIndex');
+Route::get('groups/details/{groupname}', 'GroupController@getGroupView');
+Route::get('groups/create', 'GroupController@getGroupCreate');
+Route::post('groups/create', 'GroupController@postGroup');
+Route::get('groups/enter/{groupid}', 'GroupController@enterGroup');
+Route::get('groups/quit/{groupid}', 'GroupController@quitGroup');
+
 
 // User reset routes
 Route::get('user/reset/{token}', 'UserController@getReset');

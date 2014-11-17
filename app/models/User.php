@@ -23,6 +23,15 @@ class User extends ConfideUser implements UserInterface, RemindableInterface{
         return $this->where('username', '=', $username)->first();
     }
 
+    public function getRole()
+    {
+        $userId = $this->id;
+        $roleId = DB::table('assigned_roles')->where('user_id', $userId)->first()->role_id;
+        $role = DB::table('roles')->where('id', $roleId)->first()->name;
+        //$role = $this->belongsTo('Role')->first();
+        return $role;
+    }
+
     /**
      * Get the date the user was created.
      *
@@ -65,7 +74,7 @@ class User extends ConfideUser implements UserInterface, RemindableInterface{
     }
 
     /**
-     * Redirect after auth.
+     * Redirect  auth.
      * If ifValid is set to true it will redirect a logged in user.
      * @param $redirect
      * @param bool $ifValid

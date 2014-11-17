@@ -21,7 +21,7 @@
             </div>
             <div class="col-xs-8 col-sm-9 col-md-10 col-lg-10">
                 <strong>{{ $user->username }}</strong><br>
-                <span class="text-muted">User level: { role }</span>
+                <span class="text-muted">User level: {{ $user->getRole() }}</span>
             </div>
             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".cyruxx">
                 <i class="glyphicon glyphicon-chevron-down text-muted"></i>
@@ -49,13 +49,11 @@
                                 <strong>Cyruxx</strong><br>
                                 <dl>
                                     <dt>User level:</dt>
-                                    <dd>{role}</dd>
+                                    <dd>{{ $user->getRole() }}</dd>
                                     <dt>Registered since:</dt>
-                                    <dd>{registration_date}</dd>
+                                    <dd>{{ $user->created_at }}</dd>
                                     <dt>Name:</dt>
-                                    <dd>{name}</dd>
-                                    <dt>Birth date:</dt>
-                                    <dd>{birth_date}</dd>
+                                    <dd>{{ $user->name }}</dd>
                                 </dl>
                             </div>
                             <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
@@ -64,19 +62,15 @@
                                     <tbody>
                                     <tr>
                                         <td>User level:</td>
-                                        <td>{role}</td>
+                                        <td>{{ $user->getRole() }}</td>
                                     </tr>
                                     <tr>
                                         <td>Registered since:</td>
-                                        <td>{registration_date}</td>
+                                        <td>{{ $user->created_at }}</td>
                                     </tr>
                                     <tr>
                                         <td>Name</td>
-                                        <td>{name}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Birth date</td>
-                                        <td>{birth_date}</td>
+                                        <td>{{ $user->name }}</td>
                                     </tr>
                                     </tbody>
                                 </table>
