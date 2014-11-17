@@ -72,9 +72,10 @@
                         <li><a href="{{{ URL::to('users') }}}">Users</a></li>
                         <li><a href="{{{ URL::to('groups') }}}">Groups</a></li>
 					</ul>
-                    <form class="navbar-form navbar-left" role="search">
+                    <form method="post" action="{{ URL::to('search') }}"  class="navbar-form navbar-left" role="search">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="form-group">
-                          <input type="text" class="form-control" placeholder="Search">
+                          <input type="text" name="str" class="form-control" placeholder="Search">
                         </div>
                         <button type="submit" class="btn btn-default">Submit</button>
                       </form>

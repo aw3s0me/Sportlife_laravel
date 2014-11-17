@@ -95,6 +95,8 @@ Route::get('groups/detail/{groupid}', 'GroupController@getGroupDetail');
 Route::post('groups/edit/{groupid}', 'GroupController@editGroup');
 Route::post('groups/remove/{groupid}', 'GroupController@removeGroup');
 
+Route::post('search', 'SearchController@doSearch');
+
 
 // User reset routes
 Route::get('user/reset/{token}', 'UserController@getReset');
