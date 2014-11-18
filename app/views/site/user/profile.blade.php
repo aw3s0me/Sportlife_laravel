@@ -58,7 +58,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <a type="button" href="{{ URL::to('users/stat/'.$user->id) }}" class="btn btn-primary">My Statistics</a>
+                                <a type="button" href="{{ URL::to('users/stat/'.$user->username) }}" class="btn btn-primary">My Statistics</a>
                                 <a type="button" href="{{ URL::to('users/addstat') }}" class="btn btn-primary">Add Statistics</a>
                             </div>
                         </div>

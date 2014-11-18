@@ -126,4 +126,8 @@ class User extends ConfideUser implements UserInterface, RemindableInterface{
         return $this->belongsToMany('Group');
     }
 
+    public function activities() {
+        return $this->belongsToMany('Activity');
+    }
+
 }

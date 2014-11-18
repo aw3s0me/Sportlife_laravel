@@ -58,10 +58,69 @@ class UserController extends BaseController {
         return View::make('site/user/profile', ['user' => $user]);
     }
 
-    public function showStats($userid)
+    public function showStats($username)
     {
+        $user = User::whereUsername($username)->first();
+        if (!$user) return View::make('/');
+        $userid = $user->id;
+        //$res = DB::table('users')->join('activity_user', 'activity_user.user_id', '=', 'users.id');
+        $football = DB::select(DB::raw("
+            SELECT
+            SUM(spent) AS spent,
+            SUM(num) AS num,
+            SUM(red) AS red,
+            SUM(yel) AS yel
+            FROM users
+            JOIN activity_user ON users.id = activity_user.user_id
+            JOIN activities ON activities.id = activity_user.activity_id
+            JOIN footballs ON footballs.activity_id = activities.id
+            WHERE users.id = '$userid'
+        "));
 
-        return View::make('site/')
+        if ($football) $football = $football[0];
+        //Log::info(dd($football));
+
+        $wlift = DB::select("
+            SELECT
+            SUM(spent) AS spent,
+            SUM(num) AS num,
+            SUM(weight) AS weight
+            FROM users
+            JOIN activity_user ON users.id = activity_user.user_id
+            JOIN activities ON activities.id = activity_user.activity_id
+            JOIN wlifts ON wlifts.activity_id = activities.id
+            WHERE users.id = '$userid'
+        ");
+
+        if ($wlift) $wlift = $wlift[0];
+        //Log::info(dd($wlift));
+
+        $jog = DB::select("
+            SELECT
+            SUM(spent) AS spent,
+            SUM(num) AS num,
+            AVG(pulse) AS pulse
+            FROM users
+            JOIN activity_user ON users.id = activity_user.user_id
+            JOIN activities ON activities.id = activity_user.activity_id
+            JOIN jogs ON jogs.activity_id = activities.id
+            WHERE users.id = '$userid'
+        ");
+
+        if ($jog) $jog = $jog[0];
+        //Log::info($jog);
+        //Log::info($res->get());
+            //->join('orders', 'users.', '=', 'orders.user_id')
+        //$activities = $user->activities();
+
+        //Log::info(dd($activities->get()));
+        
+        //$football = $activities->join('activity_user', 'Activity.id', '=', 'activity_user.activity_id')->get();
+        //Log::info(dd($football));
+        //$jog = ;
+        //$wlift = ;
+
+        return View::make('site/user/stat', ['football' => $football, 'jog' => $jog, 'wlift' => $wlift]);
     }
 
 
