@@ -81,7 +81,10 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
 
 // All users
 Route::get('users', 'UserController@getList');
-Route::get('users/{username}', 'UserController@showProfile');
+Route::get('users/profile/{username}', 'UserController@showProfile');
+Route::get('users/addstat', 'UserController@getAddStats');
+Route::get('users/stat/{username}', 'UserController@showStats');
+Route::post('users/addstat', 'UserController@postStats');
 
 //Groups
 Route::get('groups', 'GroupController@getIndex');

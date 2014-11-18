@@ -4,9 +4,11 @@
 {{-- Content --}}
 @section('content')
 <h1>Group List: 
+    @if (Auth::user()->user_is_adm_or_moder())
 <a href="{{{ URL::to('groups/create') }}}" type="button" class="btn btn-info btn-lg">
   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Group
 </a>
+    @endif
 </h1>
 <div class="page-header">
     <h3>

@@ -85,7 +85,7 @@
                         <li><a href="{{{ URL::to('admin') }}}">Admin Panel</a></li>
                         @endif
                         <li><a href="{{{ URL::to('user') }}}">Edit</a></li>
-                        <li><a href="{{{ URL::to('users/') }}}/{{{ Auth::user()->username }}}">My profile</a></li>
+                        <li><a href="{{{ URL::to('users/profile') }}}/{{{ Auth::user()->username }}}">My profile</a></li>
                         <li><a href="{{{ URL::to('user/logout') }}}">Logout</a></li>
                         @else
                         <li {{ (Request::is('user/login') ? ' class="active"' : '') }}><a href="{{{ URL::to('user/login') }}}">Login</a></li>

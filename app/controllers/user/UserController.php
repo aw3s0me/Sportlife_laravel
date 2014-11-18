@@ -58,6 +58,81 @@ class UserController extends BaseController {
         return View::make('site/user/profile', ['user' => $user]);
     }
 
+    public function showStats($userid)
+    {
+
+        return View::make('site/')
+    }
+
+
+    public function getAddStats()
+    {
+        Log::info('OLOLO');
+        return View::make('site/user/addstat');
+    }
+
+    public function postStats()
+    {
+        $type = Input::get('type');
+        $user = Auth::user();
+        $userId = $user->id;
+        switch ($type) {
+            case 'weightlifting':
+                $spent = Input::get('wliftspent');
+                $lifts = Input::get('wliftcount');
+                $weight = Input::get('wliftweight');
+                $activity = Activity::create(array(
+                    'num' => $lifts,
+                    'spent' => $spent
+                ));
+                $wlift = Wlift::create(array(
+                    'weight' => $weight
+                ));
+                $activity->users()->sync(array($userId));
+                $activity->wlift()->save($wlift);
+                
+                break;
+            case 'football':
+                $spent = Input::get('ftblspent');
+                $goals = Input::get('ftblcount');
+                $yel = Input::get('ftblyel');
+                $red = Input::get('ftblred');
+
+                $activity = Activity::create(array(
+                    'num' => $goals,
+                    'spent' => $spent
+                ));
+
+                $football = Football::create(array(
+                    'yel' => $yel,
+                    'red' => $red
+                ));
+                $activity->football()->save($football);
+                $activity->users()->sync(array($userId));
+                break;
+            case 'jogging':
+                $spent = Input::get('jgspent');
+                $miles = Input::get('jgcount');
+                $place = Input::get('jgplace');
+                $pulse = Input::get('jgpulse');
+
+                $activity = Activity::create(array(
+                    'num' => $miles,
+                    'spent' => $spent
+                ));
+
+                $jog = Jog::create(array(
+                    'place' => $place,
+                    'pulse' => $pulse
+                ));
+
+                $activity->jog()->save($jog);
+                $activity->users()->sync(array($userId));
+                break;
+        }
+
+        return View::make('site/user/profile', compact('user'));
+    }
 
 
     /**

@@ -23,6 +23,13 @@ class User extends ConfideUser implements UserInterface, RemindableInterface{
         return $this->where('username', '=', $username)->first();
     }
 
+    public function user_is_adm_or_moder()
+    {
+        $userId = $this->id;
+        $roleId = DB::table('assigned_roles')->where('user_id', $userId)->first()->role_id;
+        return $roleId === 1 || $roleId === 4;
+    }
+
     public function getRole()
     {
         $userId = $this->id;

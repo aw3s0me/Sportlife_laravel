@@ -23,7 +23,7 @@
 <ul class="list-group">
 @foreach ($users as $user)
   <li class="list-group-item">
-    <a href="{{{ URL::to('users/' . $user->username ) }}}">
+    <a href="{{{ URL::to('users/profile/' . $user->username ) }}}">
     {{ $user->username }}
     </a>
   </li>
